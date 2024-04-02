@@ -51,7 +51,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\DbFactory.cs" />
+    <Compile Include="Infrastructure\Disposable.cs" />
+    <Compile Include="Infrastructure\IDbFactory.cs" />
+    <Compile Include="Infrastructure\IRepository.cs" />
+    <Compile Include="Infrastructure\IUnitOfWork.cs" />
+    <Compile Include="Infrastructure\RepositoryBase.cs" />
+    <Compile Include="Infrastructure\UnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShopTreeDbContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -61,6 +69,10 @@
     <ProjectReference Include="..\ShopTree.Common\ShopTree.Common.csproj">
       <Project>{19893b46-6ec6-4727-90d5-dc41d4556ce3}</Project>
       <Name>ShopTree.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShopTree.Model\ShopTree.Model.csproj">
+      <Project>{f694122f-e36c-42b3-a2cc-4968172a7790}</Project>
+      <Name>ShopTree.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
