@@ -32,14 +32,14 @@ namespace ShopTree.UnitTest.RepositoryTest
         public void PostCategory_Repository_Create()
         {
             PostCategory category = new PostCategory();
-            category.Name = "Test category";
+            category.Name = "1Test category";
             category.Alias = "Test-category";
             category.Status = true;
             var result = objRepository.Add(category);
             unitOfWork.Commit();
 
             Assert.IsNotNull(result);
-            Assert.AreEqual(3, result.ID);
+            Assert.AreEqual(2, result.ID);
         }
 
     }
