@@ -4,11 +4,12 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity.EntityFramework;
 using ShopTree.Model.Models;
 
 namespace ShopTree.Data
 {
-    public class ShopTreeDbContext : DbContext
+    public class ShopTreeDbContext : IdentityDbContext<ApplicationUser>
     {
         public ShopTreeDbContext() : base("ShopTreeConnection")
         {
@@ -38,10 +39,15 @@ namespace ShopTree.Data
 
         public DbSet<Error> Errors { set; get; }
 
+        public static ShopTreeDbContext Create()
+        {
+            return new ShopTreeDbContext();
+        }
 
         protected override void OnModelCreating(DbModelBuilder builder)
         {
-
+            builder.Entity<IdentityUserRole>().HasKey(i => new { i.UserId, i.RoleId });
+            builder.Entity<IdentityUserLogin>().HasKey(i => i.UserId);
         }
     }
 }

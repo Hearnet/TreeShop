@@ -14,16 +14,22 @@ using Autofac.Integration.WebApi;
 using ShopTree.Data;
 using AutoMapper;
 using System.Collections.Generic;
+using Microsoft.AspNet.Identity;
+using ShopTree.Model.Models;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.DataProtection;
+using System.Web;
 
 [assembly: OwinStartup(typeof(ShopTree.Web.App_Start.Startup))]
 
 namespace ShopTree.Web.App_Start
 {
-    public class Startup
+    public partial class Startup
     {
         public void Configuration(IAppBuilder app)
         {
             ConfigAutofac(app);
+            ConfigureAuth(app);
         }
         private void ConfigAutofac(IAppBuilder app)
         {
@@ -46,6 +52,14 @@ namespace ShopTree.Web.App_Start
             builder.RegisterAssemblyTypes(typeof(PostCategoryService).Assembly)
                .Where(t => t.Name.EndsWith("Service"))
                .AsImplementedInterfaces().InstancePerRequest();
+
+
+            //Asp.net Identity
+            builder.RegisterType<ApplicationUserStore>().As<IUserStore<ApplicationUser>>().InstancePerRequest();
+            builder.RegisterType<ApplicationUserManager>().AsSelf().InstancePerRequest();
+            builder.RegisterType<ApplicationSignInManager>().AsSelf().InstancePerRequest();
+            builder.Register(c => HttpContext.Current.GetOwinContext().Authentication).InstancePerRequest();
+            builder.Register(c => app.GetDataProtectionProvider()).InstancePerRequest();
 
 
             // mapper
